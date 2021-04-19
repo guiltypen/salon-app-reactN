@@ -1,55 +1,69 @@
-import React from "react";
-import { View, StyleSheet, Text, TextInput } from "react-native";
-
+import React, { useState } from "react";
+import {
+  AuthImgSignUp,
+  AuthContainer,
+  AuthTitle,
+  AuthTextInput,
+  AuthButtonText,
+  BackgroundSq,
+  AuthButtonB,
+} from "../../styles";
 const SignUp = ({ navigation }) => {
+  const [newUser, setnewUser] = useState({
+    username: "",
+    password: "",
+    firstName: "",
+    lastName: "",
+    phoneNumber: "",
+    email: "",
+  });
+
+  const handleSubmit = () => {
+    console.log("SignUp", user);
+    // authStore.signin(user);
+    // if (authStore.user) navigation.replace("Home");
+  };
   return (
-    <View style={styles.container}>
-      <Text style={styles.Text}>Create a new Account</Text>
-      <TextInput placeholder="Username" style={styles.TextInput}></TextInput>
-      <View style={styles.padding}></View>
-      <TextInput placeholder="First Name" style={styles.TextInput}></TextInput>
-      <View style={styles.padding}></View>
-      <TextInput placeholder="Last Name" style={styles.TextInput}></TextInput>
-      <View style={styles.padding} style={styles.padding}></View>
-      <TextInput
+    <AuthContainer>
+      <BackgroundSq source={require("../../../assets/BlueRec.png")} />
+      <AuthImgSignUp source={require("../../../assets/logosolidwhite.png")} />
+      <AuthTitle>Create a new Account</AuthTitle>
+      <AuthTextInput
+        placeholder="Username"
+        placeholderTextColor="#A6AEC1"
+        onChangeText={(username) => setUser({ ...user, username })}
+      />
+      <AuthTextInput
+        placeholder="First Name"
+        placeholderTextColor="#A6AEC1"
+        onChangeText={(firstName) => setUser({ ...user, firstName })}
+      />
+      <AuthTextInput
+        placeholder="Last Name"
+        placeholderTextColor="#A6AEC1"
+        onChangeText={(lastName) => setUser({ ...user, lastName })}
+      />
+      <AuthTextInput
         placeholder="Phone Number"
-        style={styles.TextInput}
-      ></TextInput>
-      <View style={styles.padding} style={styles.padding}></View>
-      <TextInput placeholder="Email" style={styles.TextInput}></TextInput>
-      <View style={styles.padding} style={styles.padding}></View>
-      <TextInput
-        secureTextEntry={true}
+        placeholderTextColor="#A6AEC1"
+        onChangeText={(phoneNumber) => setUser({ ...user, phoneNumber })}
+      />
+      <AuthTextInput
+        placeholder="Email"
+        placeholderTextColor="#A6AEC1"
+        onChangeText={(email) => setUser({ ...user, email })}
+      />
+      <AuthTextInput
         placeholder="Password"
-        style={styles.TextInput}
-      ></TextInput>
-      <View style={styles.padding} style={styles.padding}></View>
-    </View>
+        placeholderTextColor="#A6AEC1"
+        secureTextEntry={true}
+        onChangeText={(password) => setUser({ ...user, password })}
+      />
+      <AuthButtonB onPress={handleSubmit}>
+        <AuthButtonText>Sign in</AuthButtonText>
+      </AuthButtonB>
+    </AuthContainer>
   );
 };
 
 export default SignUp;
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: 156596,
-  },
-  Text: {
-    color: "white",
-    fontSize: 20,
-    alignSelf: "center",
-    padding: 50,
-    textAlign: "center",
-  },
-  TextInput: {
-    backgroundColor: "white",
-    borderRadius: 10,
-    height: 40,
-    width: 270,
-    alignSelf: "center",
-    textAlign: "center",
-    fontSize: 15,
-  },
-  padding: { padding: 10 },
-});
