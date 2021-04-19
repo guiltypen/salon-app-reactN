@@ -9,19 +9,21 @@ import {
   AuthButtonText,
   BackgroundSq,
 } from "../../styles";
-
-// import AuthStore from "../Stores/AuthStore";
+import authStore from "../Stores/AuthStore";
+import { observer } from "mobx-react";
 
 const SignIn = ({ navigation }) => {
+  if (authStore.user) navigation.replace("Home");
+
   const [user, setUser] = useState({
     username: "",
     password: "",
   });
 
-  const handleSubmit = () => {
-    console.log("Signin", user);
-    // authStore.signin(user);
-    // if (authStore.user) navigation.replace("Home");
+  console.log(user);
+
+  const handleSubmit = async () => {
+    await authStore.signin(user);
   };
 
   return (
@@ -47,4 +49,4 @@ const SignIn = ({ navigation }) => {
   );
 };
 
-export default SignIn;
+export default observer(SignIn);

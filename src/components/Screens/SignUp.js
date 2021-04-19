@@ -10,22 +10,25 @@ import {
 } from "../../styles";
 import authStore from "../Stores/AuthStore";
 import { observer } from "mobx-react";
+
 const SignUp = ({ navigation }) => {
-  const [newUser, setnewUser] = useState({
+  if (authStore.user) navigation.replace("Home");
+
+  const [user, setUser] = useState({
     username: "",
     password: "",
     firstName: "",
     lastName: "",
     phone: "",
     email: "",
-    gender: "male",
+    gender: "",
   });
 
-  const handleSubmit = () => {
-    console.log("SignUp", newUser);
-    authStore.signup(newUser);
-    if (authStore.user) navigation.replace("Gender");
+  const handleSubmit = async () => {
+    await authStore.signup(user);
+
   };
+
   return (
     <AuthContainer>
       <BackgroundSq source={require("../../../assets/BlueRec.png")} />
@@ -38,32 +41,45 @@ const SignUp = ({ navigation }) => {
       />
       <AuthTextInput
         placeholder="First Name"
+        required
         placeholderTextColor="#A6AEC1"
         onChangeText={(firstName) => setnewUser({ ...newUser, firstName })}
       />
       <AuthTextInput
         placeholder="Last Name"
+        required
         placeholderTextColor="#A6AEC1"
         onChangeText={(lastName) => setnewUser({ ...newUser, lastName })}
       />
       <AuthTextInput
         placeholder="Phone Number"
+        required
         placeholderTextColor="#A6AEC1"
-        onChangeText={(phone) => setnewUser({ ...newUser, phone })}
+
+        onChangeText={(phone) => setUser({ ...user, phone })}
+
       />
       <AuthTextInput
         placeholder="Email"
+        required
         placeholderTextColor="#A6AEC1"
         onChangeText={(email) => setnewUser({ ...newUser, email })}
       />
       <AuthTextInput
         placeholder="Password"
+        required
         placeholderTextColor="#A6AEC1"
         secureTextEntry={true}
         onChangeText={(password) => setnewUser({ ...newUser, password })}
       />
+      <AuthTextInput
+        placeholder="Gender"
+        required
+        placeholderTextColor="#A6AEC1"
+        onChangeText={(gender) => setUser({ ...user, gender })}
+      />
       <AuthButtonB onPress={handleSubmit}>
-        <AuthButtonText>Sign in</AuthButtonText>
+        <AuthButtonText>Sign up</AuthButtonText>
       </AuthButtonB>
     </AuthContainer>
   );

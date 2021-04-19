@@ -1,115 +1,80 @@
+// Omporting AutoObservable
 import { makeAutoObservable } from "mobx";
+
+// Importing jwt decode
+import decode from "jwt-decode";
+
+// Importing axios
 import axios from "axios";
-import jwtDecode from "jwt-decode";
+
+// Importing AsyncStorage
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 let instance = axios.create({
-  baseURL: "http://192.168.8.101:8000/",
+  baseURL: "http://192.168.8.107:8000/",
 });
 
 class AuthStore {
   user = null;
-
-  signUpUsernameCheck = {
-    message: "",
-    available: true,
-    loading: false,
-  };
+  loading = true;
 
   constructor() {
     makeAutoObservable(this);
   }
 
-  secret = async () => {
-    try {
-      const response = await instance.get("/secret");
+  checkForToken = async () => {
+    const token = await AsyncStorage.getItem("User Token");
+    if (token) {
+      const currentTime = Date.now();
+      const user = decode(token);
+      if (user.exp >= currentTime) {
+        this.setUser(token);
+      } else {
+        this.signout();
+      }
+    }
+  };
 
-      alert(response.data.secret);
+  setUser = async (token) => {
+    // Keep user logged in
+    await AsyncStorage.setItem("User Token", token);
+    instance.defaults.headers.common.Authorization = `Bearer ${token}`;
+    this.user = decode(token);
+  };
+
+  signout = async () => {
+    try {
+      await AsyncStorage.removeItem("User Token");
+      delete instance.defaults.headers.common.Authorization;
+      this.user = null;
     } catch (error) {
-      console.log("AuthStore -> signup -> error", error);
+      console.log(error);
     }
   };
 
   signup = async (userData) => {
     try {
-      console.log(userData);
-      const response = await instance.post("/signup", userData);
-
-      const token = response.data.token;
-
-      this.user = jwtDecode(token);
-
-      this.checkForToken();
-
-      console.log("user = > ", this.user);
+      const res = await instance.post("/users/signup", userData);
+      this.setUser(res.data.token);
     } catch (error) {
-      console.log("AuthStore -> signup -> error", error);
+      console.error(error);
     }
   };
 
   signin = async (userData) => {
     try {
-      const response = await instance.post("/signin", userData);
-      console.log(response.data.token);
-
-      const token = response.data.token;
-
-      this.user = jwtDecode(token);
-
-      localStorage.setItem("userToken", token);
-
-      this.checkForToken();
-
-      console.log("user token => ", this.user);
+      const res = await instance.post("/users/signin", userData);
+      this.setUser(res.data.token);
+      alert("u r signed in");
     } catch (error) {
-      console.log("AuthStore -> signin -> error", error);
-    }
-  };
-
-  checkForToken = () => {
-    const token = localStorage.getItem("userToken");
-    if (token) {
-      const decodedToken = jwtDecode(token);
-
-      if (decodedToken.exp > Date.now()) {
-        this.user = decodedToken;
-
-        instance = axios.create({
-          baseURL: "http://localhost:8000/",
-          headers: { Authorization: "Bearer " + token },
-        });
-      } else {
-        localStorage.removeItem("userToken");
-      }
-    }
-  };
-
-  checkUsername = async (username) => {
-    try {
-      if (!username) return;
-
-      console.log(username);
-
-      this.checkUsername.loading = true;
-
-      const response = await axios.post("http://localhost:8000/checkUsername", {
-        username,
-      });
-
-      this.checkUsername.loading = false;
-      this.checkUsername.available = response.data.available;
-
-      if (response.data.available) {
-        this.checkUsername.message = "";
-      } else {
-        this.checkUsername.message = "Username is already taken";
-      }
-    } catch (error) {
-      console.log("AuthStore -> checkusername -> error", error);
+      alert("u r NOT signed in");
+      // console.error(error);
     }
   };
 }
 
 const authStore = new AuthStore();
+// authStore.signout();
 authStore.checkForToken();
 
 export default authStore;
