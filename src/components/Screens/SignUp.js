@@ -26,6 +26,7 @@ const SignUp = ({ navigation }) => {
 
   const handleSubmit = async () => {
     await authStore.signup(user);
+
   };
 
   return (
@@ -36,38 +37,40 @@ const SignUp = ({ navigation }) => {
       <AuthTextInput
         placeholder="Username"
         placeholderTextColor="#A6AEC1"
-        onChangeText={(username) => setUser({ ...user, username })}
+        onChangeText={(username) => setnewUser({ ...newUser, username })}
       />
       <AuthTextInput
         placeholder="First Name"
         required
         placeholderTextColor="#A6AEC1"
-        onChangeText={(firstName) => setUser({ ...user, firstName })}
+        onChangeText={(firstName) => setnewUser({ ...newUser, firstName })}
       />
       <AuthTextInput
         placeholder="Last Name"
         required
         placeholderTextColor="#A6AEC1"
-        onChangeText={(lastName) => setUser({ ...user, lastName })}
+        onChangeText={(lastName) => setnewUser({ ...newUser, lastName })}
       />
       <AuthTextInput
         placeholder="Phone Number"
         required
         placeholderTextColor="#A6AEC1"
+
         onChangeText={(phone) => setUser({ ...user, phone })}
+
       />
       <AuthTextInput
         placeholder="Email"
         required
         placeholderTextColor="#A6AEC1"
-        onChangeText={(email) => setUser({ ...user, email })}
+        onChangeText={(email) => setnewUser({ ...newUser, email })}
       />
       <AuthTextInput
         placeholder="Password"
         required
         placeholderTextColor="#A6AEC1"
         secureTextEntry={true}
-        onChangeText={(password) => setUser({ ...user, password })}
+        onChangeText={(password) => setnewUser({ ...newUser, password })}
       />
       <AuthTextInput
         placeholder="Gender"
