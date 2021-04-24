@@ -79,3 +79,14 @@ export const BackgroundSq = styled.Image`
   height: 900px;
   width: 900px;
 `;
+export const SearchBarStyled = styled.TextInput`
+  padding: 0.5rem;
+  margin: 1rem auto;
+  width: 40%;
+`;
+export const salonTitle = styled.Text`
+  color: white;
+  font-size: 11px;
+  margin-bottom: 20px;
+  padding: 10px;
+`;
