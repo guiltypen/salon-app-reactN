@@ -6,7 +6,7 @@ import {
   AuthContainer,
   AuthTitle,
   BackgroundSq,
-} from "../../styles";
+} from "./styles";
 
 // import AuthStore from "../Stores/AuthStore";
 
@@ -18,7 +18,10 @@ const Gender = ({ navigation }) => {
       <BackgroundSq source={require("../../../assets/PurpleRec.png")} />
       <AuthImg source={require("../../../assets/logosolidwhite.png")} />
       <View style={{ alignItems: "center" }}>
-        <GenderImg source={require("../../../assets/maleIcon.png")} />
+        <GenderImg
+          onPress={() => navigation.navigate("SignUp")}
+          source={require("../../../assets/maleIcon.png")}
+        />
         <AuthTitle>Male</AuthTitle>
       </View>
       <GenderImg source={require("../../../assets/femaleIcon.png")} />
