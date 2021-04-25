@@ -8,21 +8,20 @@ import {
   AuthButtonP,
   AuthButtonText,
   BackgroundSq,
-} from "../../styles";
-import authStore from "../Stores/AuthStore";
+} from "./styles";
+import authStore from "../../Stores/AuthStore";
 import { observer } from "mobx-react";
 
 const SignIn = ({ navigation }) => {
-  if (authStore.user) navigation.replace("Home");
+  if (authStore.user) navigation.replace("Salons");
 
   const [user, setUser] = useState({
     username: "",
     password: "",
   });
 
-  console.log(user);
-
   const handleSubmit = async () => {
+    console.log("user in on submit:", user);
     await authStore.signin(user);
   };
 

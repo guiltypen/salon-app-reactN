@@ -1,15 +1,8 @@
-import { StatusBar } from "expo-status-bar";
-import React from "react";
-import { StyleSheet, View } from "react-native";
-import { NavigationContainer } from "@react-navigation/native";
-import { createStackNavigator } from "@react-navigation/stack";
-import SignUp from "./src/components/Screens/SignUp";
-import SignIn from "./src/components/Screens/SignIn";
-import Home from "./src/components/Screens/Home";
-import { ThemeProvider } from "styled-components";
-import Gender from "./src/components/Screens/Gender";
+import React, { useState } from "react";
 
-const { Navigator, Screen } = createStackNavigator();
+import { ThemeProvider } from "styled-components";
+
+import Navigation from "./src/components/Navigation";
 
 //Global theme
 const theme = {
@@ -22,72 +15,10 @@ const theme = {
 };
 
 export default function App() {
+  const [gender, setGender] = useState(null);
   return (
     <ThemeProvider theme={theme.default}>
-      <View style={styles.container}>
-        <NavigationContainer>
-          <Navigator initialRouteName="Home">
-            <Screen
-              name="Home"
-              component={Home}
-              options={{
-                headerShown: false,
-              }}
-            />
-
-            <Screen
-              name="SignUp"
-              component={SignUp}
-              options={{
-                title: "Sign Up",
-                headerStyle: {
-                  backgroundColor: theme.default.backgroundColor,
-                },
-                headerTintColor: "#fff",
-                headerTitleStyle: {
-                  fontWeight: "bold",
-                },
-              }}
-            />
-            <Screen
-              name="SignIn"
-              component={SignIn}
-              options={{
-                title: "Sign in",
-                headerStyle: {
-                  backgroundColor: theme.default.darkPurple,
-                },
-                headerTintColor: "#fff",
-                headerTitleStyle: {
-                  fontWeight: "bold",
-                },
-              }}
-            />
-            <Screen
-              name="Gender"
-              component={Gender}
-              options={{
-                title: "Choose Gender",
-                headerStyle: {
-                  backgroundColor: theme.default.darkPurple,
-                },
-                headerTintColor: "#fff",
-                headerTitleStyle: {
-                  fontWeight: "bold",
-                },
-              }}
-            />
-          </Navigator>
-        </NavigationContainer>
-        <StatusBar style="auto" />
-      </View>
+      <Navigation theme={theme.default} />
     </ThemeProvider>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-  },
-});

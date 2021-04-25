@@ -1,5 +1,5 @@
 //Dependancies
-import { Button } from "react-native";
+
 import styled from "styled-components/native";
 
 export const AuthContainer = styled.View`
