@@ -12,7 +12,7 @@ import {
 import authStore from "../../Stores/AuthStore";
 
 const Home = ({ navigation }) => {
-  if (authStore.user) navigation.replace("Gender");
+  if (authStore.user) navigation.replace("Salons");
   return (
     <AuthContainer>
       <BackgroundSq source={require("../../../assets/BlueRec.png")} />

@@ -27,7 +27,7 @@ const SignUp = ({ navigation }) => {
 
   const handleSubmit = async () => {
     await authStore.signup(user);
-    navigation.replace("Gender");
+    navigation.replace("Salons");
     // console.log("user:",user)
   };
 

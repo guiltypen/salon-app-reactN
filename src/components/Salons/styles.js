@@ -80,11 +80,12 @@ export const BackgroundSq = styled.Image`
   width: 900px;
 `;
 export const SearchBarStyled = styled.TextInput`
-  padding: 0.5rem;
-  margin: 1rem auto;
-  width: 40%;
+  padding: 10px;
+  background-color: white;
+  border-radius: 15px;
+  width: 60%;
 `;
-export const salonTitle = styled.Text`
+export const SalonTitle = styled.Text`
   color: white;
   font-size: 11px;
   margin-bottom: 20px;

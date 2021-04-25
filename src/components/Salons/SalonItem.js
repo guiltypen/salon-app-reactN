@@ -1,13 +1,14 @@
 import { View, Text } from "react-native";
 import React from "react";
-import salonTitle from "./styles";
+import { SalonTitle } from "./styles";
+import { observer } from "mobx-react";
 function SalonItem(props) {
   const salo = props.salonitem;
   return (
     <View>
-      <salonTitle> - {salo.name}</salonTitle>
-      <salonTitle> - The price: {salo.price}.00KD</salonTitle>
+      <SalonTitle> - {salo.username}</SalonTitle>
+      <SalonTitle> - area: {salo.address}</SalonTitle>
     </View>
   );
 }
-export default SalonItem;
+export default observer(SalonItem);
