@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { View, StyleSheet, Text, TextInput } from "react-native";
+import React from "react";
+import { View } from "react-native";
 import {
   AuthImg,
   GenderImg,
@@ -8,11 +8,7 @@ import {
   BackgroundSq,
 } from "./styles";
 
-// import AuthStore from "../Stores/AuthStore";
-
 const Gender = ({ navigation }) => {
-  const [gender, setGender] = useState(null);
-
   return (
     <AuthContainer>
       <BackgroundSq source={require("../../../assets/PurpleRec.png")} />

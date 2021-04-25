@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { View, StyleSheet, Text, TextInput } from "react-native";
 import {
   AuthImg,
   AuthContainer,
@@ -9,11 +8,11 @@ import {
   AuthButtonText,
   BackgroundSq,
 } from "./styles";
-import authStore from "../../Stores/AuthStore";
+import userStore from "../../Stores/UserStore";
 import { observer } from "mobx-react";
 
 const SignIn = ({ navigation }) => {
-  if (authStore.user) navigation.replace("Salons");
+  if (userStore.user) navigation.replace("Salons");
 
   const [user, setUser] = useState({
     username: "",
@@ -21,8 +20,7 @@ const SignIn = ({ navigation }) => {
   });
 
   const handleSubmit = async () => {
-    console.log("user in on submit:", user);
-    await authStore.signin(user);
+    await userStore.signin(user);
   };
 
   return (

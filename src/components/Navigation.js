@@ -3,7 +3,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import SignUp from "../components/Authentication/SignUp";
 import SignIn from "../components/Authentication/SignIn";
-import Home from "../components/Authentication/Home";
+import AuthHome from "../components/Authentication/AuthHome";
 import Gender from "./Authentication/Gender";
 import SalonsList from "../components/Salons/SalonList";
 
@@ -22,11 +22,11 @@ export default function Navigation({ theme }) {
             fontWeight: "bold",
           },
         }}
-        initialRouteName="Home"
+        initialRouteName="AuthHome"
       >
         <Screen
-          name="Home"
-          component={Home}
+          name="AuthHome"
+          component={AuthHome}
           options={{
             headerShown: false,
           }}

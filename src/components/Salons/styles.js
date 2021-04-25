@@ -1,6 +1,7 @@
 //Dependancies
 
 import styled from "styled-components/native";
+import AuthBackground from "../../../assets/BlueRec.png";
 
 export const AuthContainer = styled.View`
   flex: 1;
@@ -34,6 +35,14 @@ export const AuthImg = styled.Image`
   height: 178px;
   width: 101px;
   margin: 50px;
+`;
+
+export const AuthBackgroundImg = styled.ImageBackground`
+  flex: 1;
+  width: 100%;
+  /* height: 100%; */
+  /* background-position: center; */
+  /* background-size: contain; */
 `;
 
 export const GenderImg = styled.Image`
