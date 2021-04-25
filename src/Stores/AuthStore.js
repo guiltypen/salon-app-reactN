@@ -4,7 +4,7 @@ import axios from "axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 let instance = axios.create({
-  baseURL: "http://localhost:8000/",
+  baseURL: "http://192.168.8.115:8000/",
 });
 
 class AuthStore {
@@ -62,11 +62,11 @@ class AuthStore {
 
   signin = async (userData) => {
     try {
-      console.log("use from store:", userData);
+      console.log("user from store:", userData);
       const res = await instance.post("/users/signin", userData);
 
       this.setUser(res.data.token);
-
+      console.log("this user from store:", this.user);
       // alert("u r signed in");
     } catch (error) {
       // alert("u r NOT signed in");
@@ -77,6 +77,6 @@ class AuthStore {
 
 const authStore = new AuthStore();
 authStore.signout();
-// authStore.checkForToken();
+//authStore.checkForToken();
 
 export default authStore;

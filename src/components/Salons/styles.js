@@ -79,3 +79,15 @@ export const BackgroundSq = styled.Image`
   height: 900px;
   width: 900px;
 `;
+export const SearchBarStyled = styled.TextInput`
+  padding: 10px;
+  background-color: white;
+  border-radius: 15px;
+  width: 60%;
+`;
+export const SalonTitle = styled.Text`
+  color: white;
+  font-size: 11px;
+  margin-bottom: 20px;
+  padding: 10px;
+`;

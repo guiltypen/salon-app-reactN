@@ -1,26 +1,22 @@
 import axios from "axios";
-import { makeObservable, observable, action } from "mobx";
+import { makeAutoObservable } from "mobx";
 
 let instance = axios.create({
-  baseURL: "http://192.168.8.107:8000/",
+  baseURL: "http://192.168.8.115:8000/",
 });
 
 class SalonStore {
-  salon = null;
+  salons = [];
   loading = true;
 
   constructor() {
-    makeObservable(this, {
-      salon: observable,
-      loading: observable,
-      fetchSalon: action,
-    });
+    makeAutoObservable(this);
   }
 
-  fetchSalon = async () => {
+  fetchSalons = async () => {
     try {
       const response = await instance.get("http://localhost:8000/salons");
-      this.salon = response.data;
+      this.salons = response.data;
       this.loading = false;
     } catch (error) {
       console.error(error);
@@ -29,6 +25,6 @@ class SalonStore {
 }
 
 const salonStore = new SalonStore();
-salonStore.fetchSalon();
+salonStore.fetchSalons();
 
-export default SalonStore;
+export default salonStore;
