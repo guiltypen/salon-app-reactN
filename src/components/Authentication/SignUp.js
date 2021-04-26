@@ -7,13 +7,13 @@ import {
   AuthButtonText,
   BackgroundSq,
   AuthButtonB,
-} from "../../styles";
-import authStore from "../Stores/AuthStore";
+} from "./styles";
+import userStore from "../../Stores/UserStore";
 import { observer } from "mobx-react";
 
 const SignUp = ({ navigation }) => {
-  if (authStore.user) navigation.replace("Home");
-
+  // if (userStore.user) navigation.replace("Gender"); //Replace in home
+  console.log("user from store:", userStore.user);
   const [user, setUser] = useState({
     username: "",
     password: "",
@@ -25,8 +25,9 @@ const SignUp = ({ navigation }) => {
   });
 
   const handleSubmit = async () => {
-    await authStore.signup(user);
-
+    await userStore.signup(user);
+    navigation.replace("Salons");
+    // console.log("user:",user)
   };
 
   return (
@@ -37,40 +38,38 @@ const SignUp = ({ navigation }) => {
       <AuthTextInput
         placeholder="Username"
         placeholderTextColor="#A6AEC1"
-        onChangeText={(username) => setnewUser({ ...newUser, username })}
+        onChangeText={(username) => setUser({ ...user, username })}
       />
       <AuthTextInput
         placeholder="First Name"
         required
         placeholderTextColor="#A6AEC1"
-        onChangeText={(firstName) => setnewUser({ ...newUser, firstName })}
+        onChangeText={(firstName) => setUser({ ...user, firstName })}
       />
       <AuthTextInput
         placeholder="Last Name"
         required
         placeholderTextColor="#A6AEC1"
-        onChangeText={(lastName) => setnewUser({ ...newUser, lastName })}
+        onChangeText={(lastName) => setUser({ ...user, lastName })}
       />
       <AuthTextInput
         placeholder="Phone Number"
         required
         placeholderTextColor="#A6AEC1"
-
         onChangeText={(phone) => setUser({ ...user, phone })}
-
       />
       <AuthTextInput
         placeholder="Email"
         required
         placeholderTextColor="#A6AEC1"
-        onChangeText={(email) => setnewUser({ ...newUser, email })}
+        onChangeText={(email) => setUser({ ...user, email })}
       />
       <AuthTextInput
         placeholder="Password"
         required
         placeholderTextColor="#A6AEC1"
         secureTextEntry={true}
-        onChangeText={(password) => setnewUser({ ...newUser, password })}
+        onChangeText={(password) => setUser({ ...user, password })}
       />
       <AuthTextInput
         placeholder="Gender"

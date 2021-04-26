@@ -1,20 +1,13 @@
-// Omporting AutoObservable
-import { makeAutoObservable } from "mobx";
-
-// Importing jwt decode
+import { makeAutoObservable, runInAction } from "mobx";
 import decode from "jwt-decode";
-
-// Importing axios
 import axios from "axios";
-
-// Importing AsyncStorage
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 let instance = axios.create({
-  baseURL: "http://192.168.8.107:8000/",
+  baseURL: "http://localhost:8000/",
 });
 
-class AuthStore {
+class UserStore {
   user = null;
   loading = true;
 
@@ -39,7 +32,9 @@ class AuthStore {
     // Keep user logged in
     await AsyncStorage.setItem("User Token", token);
     instance.defaults.headers.common.Authorization = `Bearer ${token}`;
-    this.user = decode(token);
+    runInAction(() => {
+      this.user = decode(token);
+    });
   };
 
   signout = async () => {
@@ -54,6 +49,7 @@ class AuthStore {
 
   signup = async (userData) => {
     try {
+      console.log("useData from store:", userData);
       const res = await instance.post("/users/signup", userData);
       this.setUser(res.data.token);
     } catch (error) {
@@ -63,18 +59,29 @@ class AuthStore {
 
   signin = async (userData) => {
     try {
+      console.log("user from store:", userData);
       const res = await instance.post("/users/signin", userData);
       this.setUser(res.data.token);
-      alert("u r signed in");
+      // alert("u r signed in");
     } catch (error) {
-      alert("u r NOT signed in");
-      // console.error(error);
+      // alert("u r NOT signed in");
+      console.error(error);
+    }
+  };
+
+  updateUser = async (updateUser) => {
+    try {
+      await instance.put(`users/${updateUser.id}`, updateUser);
+      const user = this.user.find((user) => user.id === updateUser.id);
+      for (const key in user) user[key] = updateUser[key];
+    } catch (error) {
+      console.log(error);
     }
   };
 }
 
-const authStore = new AuthStore();
-// authStore.signout();
-authStore.checkForToken();
+const userStore = new UserStore();
+userStore.signout();
+userStore.checkForToken();
 
-export default authStore;
+export default userStore;
