@@ -1,29 +1,18 @@
-import React, { useState } from "react";
-import { View, StyleSheet, Text, TextInput } from "react-native";
+import React from "react";
+
 import {
   AuthImg,
   AuthContainer,
   AuthTitle,
-  AuthTextInput,
   AuthButtonB,
   AuthButtonText,
   BackgroundSq,
-} from "../../styles";
+} from "./styles";
 
-// import AuthStore from "../Stores/AuthStore";
+import userStore from "../../Stores/UserStore";
 
-const Home = ({ navigation }) => {
-  const [user, setUser] = useState({
-    username: "",
-    password: "",
-  });
-
-  const handleSubmit = () => {
-    console.log("Signin", user);
-    // authStore.signin(user);
-    // if (authStore.user) navigation.replace("Home");
-  };
-
+const AuthHome = ({ navigation }) => {
+  if (userStore.user) navigation.replace("Salons");
   return (
     <AuthContainer>
       <BackgroundSq source={require("../../../assets/BlueRec.png")} />
@@ -41,4 +30,4 @@ const Home = ({ navigation }) => {
   );
 };
 
-export default Home;
+export default AuthHome;

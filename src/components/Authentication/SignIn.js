@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { View, StyleSheet, Text, TextInput } from "react-native";
 import {
   AuthImg,
   AuthContainer,
@@ -8,26 +7,20 @@ import {
   AuthButtonP,
   AuthButtonText,
   BackgroundSq,
-} from "../../styles";
-import authStore from "../Stores/AuthStore";
+} from "./styles";
+import userStore from "../../Stores/UserStore";
 import { observer } from "mobx-react";
 
 const SignIn = ({ navigation }) => {
-<<<<<<< Updated upstream:src/components/Screens/SignIn.js
-  if (authStore.user) navigation.replace("Home");
-=======
-  if (authStore.user) navigation.replace("Profile");
->>>>>>> Stashed changes:src/components/Authentication/SignIn.js
+  if (userStore.user) navigation.replace("Salons");
 
   const [user, setUser] = useState({
     username: "",
     password: "",
   });
 
-  console.log(user);
-
   const handleSubmit = async () => {
-    await authStore.signin(user);
+    await userStore.signin(user);
   };
 
   return (
