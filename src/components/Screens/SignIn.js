@@ -13,7 +13,11 @@ import authStore from "../Stores/AuthStore";
 import { observer } from "mobx-react";
 
 const SignIn = ({ navigation }) => {
+<<<<<<< Updated upstream:src/components/Screens/SignIn.js
   if (authStore.user) navigation.replace("Home");
+=======
+  if (authStore.user) navigation.replace("Profile");
+>>>>>>> Stashed changes:src/components/Authentication/SignIn.js
 
   const [user, setUser] = useState({
     username: "",

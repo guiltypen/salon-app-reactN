@@ -79,3 +79,17 @@ export const BackgroundSq = styled.Image`
   height: 900px;
   width: 900px;
 `;
+
+export const ProfileContainer = styled.View`
+  flex: 1;
+  align-self: stretch;
+  padding-right: 60px;
+  padding-left: 10px;
+  background-color: ${(props) => props.theme.backgroundColor};
+`;
+
+export const ProfileImg = styled.Image`
+  height: 108px;
+  width: 61px;
+  margin: 20px;
+`;
