@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 
 import {
   AuthImg,
@@ -9,10 +9,10 @@ import {
   BackgroundSq,
 } from "./styles";
 
-import authStore from "../../Stores/AuthStore";
+import userStore from "../../Stores/UserStore";
 
-const Home = ({ navigation }) => {
-  if (authStore.user) navigation.replace("Salons");
+const AuthHome = ({ navigation }) => {
+  if (userStore.user) navigation.replace("Salons");
   return (
     <AuthContainer>
       <BackgroundSq source={require("../../../assets/BlueRec.png")} />
@@ -30,4 +30,4 @@ const Home = ({ navigation }) => {
   );
 };
 
-export default Home;
+export default AuthHome;

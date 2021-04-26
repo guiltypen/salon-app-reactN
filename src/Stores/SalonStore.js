@@ -2,7 +2,7 @@ import axios from "axios";
 import { makeAutoObservable } from "mobx";
 
 let instance = axios.create({
-  baseURL: "http://192.168.8.115:8000/",
+  baseURL: "http://localhost:8000/",
 });
 
 class SalonStore {

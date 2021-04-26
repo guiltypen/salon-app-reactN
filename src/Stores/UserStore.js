@@ -1,8 +1,10 @@
+import { makeAutoObservable, runInAction } from "mobx";
+import decode from "jwt-decode";
 import axios from "axios";
-import { makeObservable, observable, action } from "mobx";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 let instance = axios.create({
-  baseURL: "http://192.168.8.107:8000/",
+  baseURL: "http://localhost:8000/",
 });
 
 class UserStore {
@@ -10,30 +12,66 @@ class UserStore {
   loading = true;
 
   constructor() {
-    makeObservable(this, {
-      user: observable,
-      loading: observable,
-      fetchUser: action,
-      updateUser: action,
-    });
+    makeAutoObservable(this);
   }
 
-  fetchUser = async () => {
+  checkForToken = async () => {
+    const token = await AsyncStorage.getItem("User Token");
+    if (token) {
+      const currentTime = Date.now();
+      const user = decode(token);
+      if (user.exp >= currentTime) {
+        this.setUser(token);
+      } else {
+        this.signout();
+      }
+    }
+  };
+
+  setUser = async (token) => {
+    // Keep user logged in
+    await AsyncStorage.setItem("User Token", token);
+    instance.defaults.headers.common.Authorization = `Bearer ${token}`;
+    runInAction(() => {
+      this.user = decode(token);
+    });
+  };
+
+  signout = async () => {
     try {
-      const response = await instance.get("http://localhost:8000/users");
-      this.user = response.data;
-      this.loading = false;
+      await AsyncStorage.removeItem("User Token");
+      delete instance.defaults.headers.common.Authorization;
+      this.user = null;
     } catch (error) {
+      console.log(error);
+    }
+  };
+
+  signup = async (userData) => {
+    try {
+      console.log("useData from store:", userData);
+      const res = await instance.post("/users/signup", userData);
+      this.setUser(res.data.token);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  signin = async (userData) => {
+    try {
+      console.log("user from store:", userData);
+      const res = await instance.post("/users/signin", userData);
+      this.setUser(res.data.token);
+      // alert("u r signed in");
+    } catch (error) {
+      // alert("u r NOT signed in");
       console.error(error);
     }
   };
 
   updateUser = async (updateUser) => {
     try {
-      await instance.put(
-        `http://localhost:8000/users/${updateUser.id}`,
-        updateUser
-      );
+      await instance.put(`users/${updateUser.id}`, updateUser);
       const user = this.user.find((user) => user.id === updateUser.id);
       for (const key in user) user[key] = updateUser[key];
     } catch (error) {
@@ -43,6 +81,7 @@ class UserStore {
 }
 
 const userStore = new UserStore();
-userStore.fetchUser();
+userStore.signout();
+userStore.checkForToken();
 
-export default UserStore;
+export default userStore;
