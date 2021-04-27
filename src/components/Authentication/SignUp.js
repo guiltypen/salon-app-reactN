@@ -7,9 +7,13 @@ import {
   AuthButtonText,
   BackgroundSq,
   AuthButtonB,
+  GenderContainer,
+  GenderImg,
+  AuthText,
 } from "./styles";
 import userStore from "../../Stores/UserStore";
 import { observer } from "mobx-react";
+import { Text, TouchableOpacity } from "react-native";
 
 const SignUp = ({ navigation }) => {
   // if (userStore.user) navigation.replace("Gender"); //Replace in home
@@ -23,11 +27,11 @@ const SignUp = ({ navigation }) => {
     email: "",
     gender: "",
   });
-
+  console.log("gender", user.gender);
   const handleSubmit = async () => {
     await userStore.signup(user);
-    navigation.replace("Salons");
-    // console.log("user:",user)
+    if (userStore.user) navigation.replace("Profile");
+    // console.log("user:", user);
   };
 
   return (
@@ -71,12 +75,21 @@ const SignUp = ({ navigation }) => {
         secureTextEntry={true}
         onChangeText={(password) => setUser({ ...user, password })}
       />
-      <AuthTextInput
-        placeholder="Gender"
-        required
-        placeholderTextColor="#A6AEC1"
-        onChangeText={(gender) => setUser({ ...user, gender })}
-      />
+      <GenderContainer>
+        <AuthTitle>Choose Gender :</AuthTitle>
+        <AuthText>{user.gender}</AuthText>
+      </GenderContainer>
+      <GenderContainer>
+        <TouchableOpacity onPress={() => setUser({ ...user, gender: "male" })}>
+          <GenderImg source={require("../../../assets/maleIcon.png")} />
+        </TouchableOpacity>
+        <TouchableOpacity
+          onPress={() => setUser({ ...user, gender: "female" })}
+        >
+          <GenderImg source={require("../../../assets/femaleIcon.png")} />
+        </TouchableOpacity>
+      </GenderContainer>
+
       <AuthButtonB onPress={handleSubmit}>
         <AuthButtonText>Sign up</AuthButtonText>
       </AuthButtonB>

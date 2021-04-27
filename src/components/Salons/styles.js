@@ -6,7 +6,6 @@ import AuthBackground from "../../../assets/BlueRec.png";
 export const AuthContainer = styled.View`
   flex: 1;
   align-self: stretch;
-  justify-content: center;
   align-items: center;
   padding-right: 60px;
   padding-left: 60px;
@@ -50,10 +49,10 @@ export const GenderImg = styled.Image`
   width: 100px;
   margin: 10px;
 `;
-export const AuthImgSignUp = styled.Image`
-  height: 113px;
-  width: 64px;
-  margin: 10px;
+export const SalonImg = styled.Image`
+  height: 75px;
+  width: 50px;
+  margin: 20px;
 `;
 
 export const AuthButtonP = styled.TouchableOpacity`
@@ -93,10 +92,33 @@ export const SearchBarStyled = styled.TextInput`
   background-color: white;
   border-radius: 15px;
   width: 60%;
+  margin: 10px;
 `;
 export const SalonTitle = styled.Text`
   color: white;
-  font-size: 11px;
-  margin-bottom: 20px;
+  font-size: 20px;
+  margin: 10px;
   padding: 10px;
+`;
+export const SalonDetail = styled.Text`
+  color: white;
+  font-size: 15px;
+  margin: 10px;
+  padding: 10px;
+`;
+export const SalonContainer = styled.View`
+  flex-direction: row;
+  padding: 5px;
+  margin: 5px;
+  width: 400px;
+
+  align-items: center;
+  border-radius: 15px;
+  background-color: ${(props) => props.theme.backgroundColor};
+`;
+export const SalonText = styled.View`
+  padding: 5px;
+  margin: 5px;
+  justify-content: center;
+  align-items: center;
 `;

@@ -1,13 +1,22 @@
 import { View, Text } from "react-native";
 import React from "react";
-import { SalonTitle } from "./styles";
+import {
+  SalonContainer,
+  SalonImg,
+  SalonTitle,
+  SalonText,
+  SalonDetail,
+} from "./styles";
 import { observer } from "mobx-react";
 function SalonItem({ salon }) {
   return (
-    <View>
-      <SalonTitle> - {salon.username}</SalonTitle>
-      <SalonTitle> - area: {salon.address}</SalonTitle>
-    </View>
+    <SalonContainer>
+      <SalonImg source={require("../../../assets/logosolidwhite.png")} />
+      <SalonText>
+        <SalonTitle>{salon.username}</SalonTitle>
+        <SalonDetail>Location: {salon.address}</SalonDetail>
+      </SalonText>
+    </SalonContainer>
   );
 }
 export default observer(SalonItem);
