@@ -7,73 +7,68 @@ import {
   AuthButtonText,
   BackgroundSq,
   AuthButtonB,
+  ProfileText,
   GenderContainer,
-  GenderImg,
   AuthText,
+  GenderImg,
 } from "./styles";
+import { Text, TouchableOpacity } from "react-native";
 import userStore from "../../Stores/UserStore";
 import { observer } from "mobx-react";
-import { Text, TouchableOpacity } from "react-native";
 
-const SignUp = ({ navigation }) => {
+const Profile = ({ navigation }) => {
   // if (userStore.user) navigation.replace("Gender"); //Replace in home
-  console.log("user from store:", userStore.user);
+
   const [user, setUser] = useState({
-    username: "",
-    password: "",
-    firstName: "",
-    lastName: "",
-    phone: "",
-    email: "",
-    gender: "",
+    username: userStore.user.username,
+    id: userStore.user.id,
+    firstName: userStore.user.firstName,
+    lastName: userStore.user.lastName,
+    phone: userStore.user.phone,
+    email: userStore.user.email,
+    gender: userStore.user.gender,
   });
-  console.log("gender", user.gender);
+
   const handleSubmit = async () => {
-    await userStore.signup(user);
-    if (userStore.user) navigation.replace("Profile");
-    // console.log("user:", user);
+    await userStore.updateUser(user);
+    // console.log("user:",user)
   };
 
   return (
     <AuthContainer>
+      <AuthTitle>Edit Profile</AuthTitle>
       <BackgroundSq source={require("../../../assets/BlueRec.png")} />
       <AuthImgSignUp source={require("../../../assets/logosolidwhite.png")} />
-      <AuthTitle>Create a new Account</AuthTitle>
+      <ProfileText>UserName</ProfileText>
       <AuthTextInput
-        placeholder="Username"
+        value={user.username}
         placeholderTextColor="#A6AEC1"
         onChangeText={(username) => setUser({ ...user, username })}
       />
+      <ProfileText>fisrt name</ProfileText>
       <AuthTextInput
-        placeholder="First Name"
-        required
+        value={user.firstName}
         placeholderTextColor="#A6AEC1"
         onChangeText={(firstName) => setUser({ ...user, firstName })}
       />
+      <ProfileText>last name</ProfileText>
       <AuthTextInput
-        placeholder="Last Name"
-        required
+        value={user.lastName}
         placeholderTextColor="#A6AEC1"
         onChangeText={(lastName) => setUser({ ...user, lastName })}
       />
+      <ProfileText>phone Number</ProfileText>
       <AuthTextInput
-        placeholder="Phone Number"
-        required
+        value={user.phone}
+        keyboardType="numeric"
         placeholderTextColor="#A6AEC1"
         onChangeText={(phone) => setUser({ ...user, phone })}
       />
+      <ProfileText>email</ProfileText>
       <AuthTextInput
-        placeholder="Email"
-        required
+        value={user.email}
         placeholderTextColor="#A6AEC1"
         onChangeText={(email) => setUser({ ...user, email })}
-      />
-      <AuthTextInput
-        placeholder="Password"
-        required
-        placeholderTextColor="#A6AEC1"
-        secureTextEntry={true}
-        onChangeText={(password) => setUser({ ...user, password })}
       />
       <GenderContainer>
         <AuthTitle>Choose Gender :</AuthTitle>
@@ -91,10 +86,10 @@ const SignUp = ({ navigation }) => {
       </GenderContainer>
 
       <AuthButtonB onPress={handleSubmit}>
-        <AuthButtonText>Sign up</AuthButtonText>
+        <AuthButtonText>Update Profile</AuthButtonText>
       </AuthButtonB>
     </AuthContainer>
   );
 };
 
-export default observer(SignUp);
+export default observer(Profile);

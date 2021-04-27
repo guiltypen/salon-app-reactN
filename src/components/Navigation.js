@@ -6,6 +6,7 @@ import SignIn from "../components/Authentication/SignIn";
 import AuthHome from "../components/Authentication/AuthHome";
 import Gender from "./Authentication/Gender";
 import SalonsList from "../components/Salons/SalonList";
+import Profile from "../components/Authentication/Profile";
 
 const { Navigator, Screen } = createStackNavigator();
 
@@ -66,9 +67,24 @@ export default function Navigation({ theme }) {
           component={SalonsList}
           title="Salons"
           options={{
-            title: "Sign in",
+            title: "Salons List",
             headerStyle: {
-              backgroundColor: theme.darkPurple,
+              backgroundColor: theme.backgroundColor,
+            },
+            headerTintColor: "#fff",
+            headerTitleStyle: {
+              fontWeight: "bold",
+            },
+          }}
+        />
+        <Screen
+          name="Profile"
+          component={Profile}
+          title="Profile"
+          options={{
+            title: "Profile",
+            headerStyle: {
+              backgroundColor: theme.backgroundColor,
             },
             headerTintColor: "#fff",
             headerTitleStyle: {

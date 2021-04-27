@@ -35,6 +35,8 @@ class UserStore {
     runInAction(() => {
       this.user = decode(token);
     });
+    console.log(" user from store :", this.user);
+    this.loading = false;
   };
 
   signout = async () => {
@@ -51,6 +53,7 @@ class UserStore {
     try {
       console.log("useData from store:", userData);
       const res = await instance.post("/users/signup", userData);
+
       this.setUser(res.data.token);
     } catch (error) {
       console.error(error);
@@ -71,9 +74,11 @@ class UserStore {
 
   updateUser = async (updateUser) => {
     try {
+      // change this and chack backend with salwa
+      console.log(updateUser.id);
       await instance.put(`users/${updateUser.id}`, updateUser);
-      const user = this.user.find((user) => user.id === updateUser.id);
-      for (const key in user) user[key] = updateUser[key];
+      // const user = this.user.find((user) => user.id === updateUser.id);
+      // for (const key in user) user[key] = updateUser[key];
     } catch (error) {
       console.log(error);
     }

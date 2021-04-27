@@ -15,7 +15,7 @@ export const AuthContainer = styled.View`
 export const AuthTitle = styled.Text`
   color: white;
   font-size: 11px;
-  margin-bottom: 20px;
+
   padding: 10px;
 `;
 export const AuthTextInput = styled.TextInput`
@@ -37,13 +37,13 @@ export const AuthImg = styled.Image`
 `;
 
 export const GenderImg = styled.Image`
-  height: 150px;
-  width: 100px;
+  height: 120px;
+  width: 80px;
   margin: 10px;
 `;
 export const AuthImgSignUp = styled.Image`
-  height: 113px;
-  width: 64px;
+  height: 100px;
+  width: 55px;
   margin: 10px;
 `;
 
@@ -59,9 +59,9 @@ export const AuthButtonP = styled.TouchableOpacity`
 export const AuthButtonB = styled.TouchableOpacity`
   align-self: center;
   align-items: center;
-  padding: 20px;
+  padding: 15px;
   background-color: ${(props) => props.theme.blue};
-  margin-top: 30px;
+  margin-top: 10px;
   border-radius: 15px;
   width: 150px;
 `;
@@ -78,4 +78,38 @@ export const BackgroundSq = styled.Image`
   left: -300px;
   height: 900px;
   width: 900px;
+`;
+
+export const ProfileContainer = styled.View`
+  flex: 1;
+  align-self: stretch;
+  padding-right: 60px;
+  padding-left: 10px;
+  background-color: ${(props) => props.theme.backgroundColor};
+`;
+
+export const ProfileImg = styled.Image`
+  height: 108px;
+  width: 61px;
+  margin: 20px;
+`;
+
+export const GenderContainer = styled.View`
+  flex-direction: row;
+  padding: 5px;
+  margin: 5px;
+  width: 400px;
+  align-items: center;
+  justify-content: center;
+`;
+
+export const AuthText = styled.Text`
+  color: white;
+  font-size: 11px;
+`;
+export const ProfileText = styled.Text`
+  color: white;
+  font-size: 11px;
+  margin-top: -10px;
+  margin-bottom: 10px;
 `;

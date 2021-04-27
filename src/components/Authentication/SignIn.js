@@ -12,7 +12,7 @@ import userStore from "../../Stores/UserStore";
 import { observer } from "mobx-react";
 
 const SignIn = ({ navigation }) => {
-  if (userStore.user) navigation.replace("Salons");
+  if (userStore.user) navigation.replace("Profile");
 
   const [user, setUser] = useState({
     username: "",
